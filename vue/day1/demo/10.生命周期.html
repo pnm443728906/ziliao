@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    {{msg}}
+    <button id="btn" type="">点我啊</button>
+    <button onclick="change()">更新</button>
+    <button onclick="destroy()">销毁</button>
+  </div>
+
+  
+</body>
+  <script>
+
+    // $("#btn").click(function(){
+    //   alert('哈哈哈，我是jQuery的点击事件');
+    // })
+
+    let vm = new Vue({
+      el: '#app',
+      data: {
+        msg: 'hello stark'
+      },
+      // 和代方法在前后顺序没有关系
+      // created() {
+      //   alert('实例已经创建完成')
+      // },
+      beforeCreate() {
+        alert('实例创建前');
+      },
+      created() {
+        $("#btn").click(function () {
+          alert('哈哈哈，我是jQuery的点击事件');
+        })
+        alert('实例已经创建完成')
+      },
+      beforeMount(){
+        alert('实例挂载前')
+      },
+      mounted(){
+        // $("#btn").click(function () {
+        //   alert('哈哈哈，我是jQuery的点击事件');
+        // })
+        alert('挂载完成')
+      },
+      beforeUpdate(){
+        alert('实例更新前')
+      },
+      updated(){
+        alert('实例更新完成')        
+      },
+      beforeDestroy(){
+        alert('实例销毁前')
+      },
+      destroyed(){
+        $("#btn").click(function () {
+          alert('哈哈哈，我是jQuery的点击事件');
+        })
+        alert('实例已经销毁')
+      },
+    })
+
+    function change() {
+        vm.msg = "hi shudong";
+    }
+    function destroy(){
+        vm.$destroy();
+    }
+  </script>
+</html>

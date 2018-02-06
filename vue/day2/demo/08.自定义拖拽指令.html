@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="vue.min.js"></script>
+  <style>
+    #app div{
+      width:50px;
+      height: 50px;
+      position: absolute
+    }
+    #app .hello{
+      background-color: red;
+      top:0;
+      left:0;
+    }
+    #app .world{
+      background-color: blueviolet;
+      top:0;
+      right: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+      <div class="hello" v-drap>
+        
+      </div>
+
+      <div class="world" v-drap>
+        
+      </div>
+
+  </div>
+</body>
+<script>
+  Vue.directive('drap', {
+    bind: function (el) {
+      el.onmousedown = function(e){
+        var disX = e.clientX - el.offsetLeft;
+        var disY = e.clientY - el.offsetTop;
+
+        document.onmousemove = function(e){
+          var l = e.clientX - disX;
+          var t = e.clientY - disY;
+          el.style.left = l + 'px';
+          el.style.top = t + 'px';
+        }
+
+        document.onmouseup = function(e){
+          document.onmousemove = null;
+          // document.onmouseup = null;
+        }
+      }
+    }
+  })
+
+  let vm = new Vue({
+    el: '#app',
+    data: {
+      name: 'stark'
+    }
+  })
+</script>
+
+</html>
